@@ -122,7 +122,9 @@ SELECT * FROM users;
 ~~~~
 
 **Query Result**
-### id | username
+
+id | username
+--- | ---
 1	| monohan93
 2	| pfeffer
 3	| si93onis
