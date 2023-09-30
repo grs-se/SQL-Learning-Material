@@ -96,7 +96,7 @@ FROM cities;
 ### String Operators and Functions
 
 **Syntax**:
-Join two strings using || pipe operator or Concat() function.
+- Join two strings using || pipe operator or Concat() function.
 
 ~~~~sql
 SELECT name || country FROM cities;
@@ -109,3 +109,21 @@ Tokyo, Japan
 Delhi, India
 Shanghai, China
 Sao Paulo, Brazil
+
+- Can stack together as many functions as we want. 
+
+~~~~sql
+SELECT
+  CONCAT(UPPER(name), ', ', UPPER(country)) AS location
+FROM
+  cities;
+~~~~
+
+Same as above:
+
+~~~~sql
+SELECT
+  UPPER(CONCAT(name, ', ', country)) AS location
+FROM
+  cities;
+~~~~
