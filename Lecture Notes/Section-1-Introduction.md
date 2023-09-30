@@ -85,3 +85,27 @@ Shanghai	China	22125000	4015
 Sao Paulo	Brazil	20935000	3043
 
 ---
+### Calculated Columns:
+
+~~~~sql
+SELECT name, population / area AS population_density
+FROM cities;
+~~~~
+
+---
+### String Operators and Functions
+
+**Syntax**:
+Join two strings using || pipe operator or Concat() function.
+
+~~~~sql
+SELECT name || country FROM cities;
+SELECT name || ', ' || country FROM cities;
+SELECT name || ', ' || country AS location FROM cities;
+SELECT CONCAT(name, ', ', country) AS location FROM cities;
+~~~~
+Query Result:
+Tokyo, Japan
+Delhi, India
+Shanghai, China
+Sao Paulo, Brazil
