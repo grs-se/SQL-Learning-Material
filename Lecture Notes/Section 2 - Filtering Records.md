@@ -83,3 +83,34 @@ FROM
 WHERE
   area NOT IN (8223, 3043) AND name = 'Delhi';
 ~~~~
+
+---
+### WHERE with Lists
+
+**Syntax**:
+- Order of operations = do mathematical operations first
+
+~~~~sql
+SELECT name, manufacturer FROM phones
+WHERE manufacturer
+IN ('Apple', 'Samsung');
+~~~~
+
+---
+### Updating Rows
+
+~~~~sql
+UPDATE cities
+SET population = 39505000
+WHERE name = 'Tokyo';
+~~~~
+
+---
+### Deleting Rows
+
+**BE CAREFUL and ACCURATE**
+
+~~~~sql
+DELETE FROM cities
+WHERE name = 'Tokyo';
+~~~~
