@@ -36,13 +36,12 @@ Name | country | population | area
 Each of the columsn stores a very different type or kind of information, strings, numbers.
 
 - Once we set up the table and the 4 columsn inside of it, we can start inserting data into the table itself, so we can start adding lists of cities. Each of these cities will have a name, country, pop, n darea, each of these cindividual cities we add into his table we refer to as rows.
-  So we have tables, tables have many colums, and each record inside od a table is referred to as a row.
--
+- So we have tables, tables have many colums, and each record inside od a table is referred to as a row.
+
 
 ### Creating Tables:
 
 **Syntax**:
-Syntax: 
 * Some words are keywords, others identifiers. Keywords are special words that tell SQL we want to do a certain thing. 
 * CREATE TABLE is a keyword, capitalizaed
 * Identifiers: cities, all lowercase
@@ -59,5 +58,30 @@ population INTEGER,
 area INTEGER
 );
 ~~~~
+
+---
+
+### Insert Data Into Table
+
+~~~~sql
+INSERT INTO cities (name, country, population, area)
+VALUES ('Tokyo', 'Japan', 38505000, 8223),
+  ('Delhi', 'India', 28125000, 2240),
+  ('Shanghai', 'China', 22125000, 4015),
+  ('Sao Paulo', 'Brazil', 20935000, 3043);
+~~~~
+---
+### Retrieving Data with Select:
+
+~~~~sql
+SELECT * FROM cities;
+~~~~
+
+Query Result
+name	country	population	area
+Tokyo	Japan	38505000	8223
+Delhi	India	28125000	2240
+Shanghai	China	22125000	4015
+Sao Paulo	Brazil	20935000	3043
 
 ---
