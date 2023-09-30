@@ -24,33 +24,39 @@ What does your UI do? List of photos? Followers, followings?
 **One to many:**
 One user has many photos that are tied to them.
 A user has many photos
--
+  
+
 **Many to one:**
 A photo has one user
--
+
+
 One to many and many to one are really just the exact opposite but it depends on which perspective you are looking at this relationship from.
--
+  
 Many comments can refer to one photo
--
+  
 School has many students
 Boat has many crew members
 Company has many employees
--
+  
 A student has one school
 An employee has one company (though some people have many jobs – but we generalize this here)
--
+  
 Any time you want to refer to a relationship using the terms has many or has one, that’s always a sign that you have a one-to-many or many-to-one relationship. 
 
 ---
 
 ### One-to-one and Many-to-many Relationships:
+
 One boat has one captain  
 One company has one CEO  
 One Capitol has one Country  
 One Student has one desk  
 One person has one driver’s license  
--  
-Many-to-many Relationships  
+
+---
+
+### Many-to-many Relationships:
+
 Many Students have many classes  
 Many Tasks have many engineers  
 Many players play in a single match, and matches that have many different players playi gin them  
