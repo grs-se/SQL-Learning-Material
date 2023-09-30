@@ -7,12 +7,6 @@
 -	What type of resources exist in your app? Create a separate table for each of these features
 -	Features that seem to indicate a relationship or ownership between two types of resoices need to be reflected in our table design. 
 
-
-
-- If we use type integer we would have to write code to manually increment integer each time a row is inserted. 
-- SERIAL datatype tells postgres to generate values automatically. We don't provide an id at all, only other fields, postgres fills in id for us. 
-- After SERIAL we add on PRIMARY KEY, which adds special perfomrance benefits to looking up records when we are using the id
-
 Google search: sql schema upvote system – tonnes of resources online about how to structure this system.
 What does your UI do? List of photos? Followers, followings?
 
@@ -98,16 +92,38 @@ No other row in the same table can have the same value	Many rows in the same tab
 99% of the time called ‘id’ – bad idea to set ‘name’ as primary key (i.e. Shanghai in China and also in America)	Name varies, usually called something like ‘xyd_id’
 Either an integer of a UUID	Exactly equal to the primary key of the referenced row
 Will never change	Will change if the relationship changes.
-  
-	
-	
+
+---
+
+### Auto-Generated ID's
 
 
-
+- If we use type integer we would have to write code to manually increment integer each time a row is inserted. 
+- SERIAL datatype tells postgres to generate values automatically. We don't provide an id at all, only other fields, postgres fills in id for us. Increment by 1.
+- After SERIAL we add on PRIMARY KEY, which adds special perfomrance benefits to looking up records when we are using the id
 
 ~~~~sql
 CREATE TABLE users (
 id SERIAL PRIMARY KEY, 
 username VARCHAR(50)
 );
+
+-- note only username, no id
+INSERT INTO
+  users (username)
+VALUES
+  ('monohan93'),
+  ('pfeffer'),
+  ('si93onis'),
+  ('99stroman');
+
+---
+SELECT * FROM users;
 ~~~~
+
+**Query Result**
+### id | username
+1	| monohan93
+2	| pfeffer
+3	| si93onis
+4	| 99stroman
