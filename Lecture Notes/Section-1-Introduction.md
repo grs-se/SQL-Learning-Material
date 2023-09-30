@@ -41,11 +41,23 @@ Each of the columsn stores a very different type or kind of information, strings
 
 ### Creating Tables:
 
+**Syntax**:
+Syntax: 
+* Some words are keywords, others identifiers. Keywords are special words that tell SQL we want to do a certain thing. 
+* CREATE TABLE is a keyword, capitalizaed
+* Identifiers: cities, all lowercase
+* CREATE TABLE cities – creates the table itself, then inside the parentehses we list out all othe columns this table should contain. 
+* Varchar = variable length characters -= essentially string
+* Integer = -2 billion to +2billion. 
+
+
+~~~~sql
 CREATE TABLE cities (
 name VARCHAR(50),
 country VARCHAR(50),
 population INTEGER,
 area INTEGER
 );
+~~~~
 
 ---
