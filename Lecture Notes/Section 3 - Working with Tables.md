@@ -158,3 +158,33 @@ SELECT * FROM photos;
 | **id** | **url**        | **user_id** |
 |--------|----------------|-------------|
 | 1      | http://one.jpg | 4           |
+
+---
+
+### Running Queries on Associated Data:
+
+~~~~sql
+INSERT INTO
+  photos (url, user_id)
+VALUES
+  ('http://two.jpg', 1),
+  ('http://24two.jpg', 1),
+  ('http://365.jpg', 1),
+  ('http://11.jpg', 2),
+  ('http://five.jpg', 3),
+  ('http://1000.jpg', 4);
+---
+SELECT * FROM photos;
+~~~~
+
+| **id** | **url**          | **user_id** |
+|--------|------------------|-------------|
+| 1      | http://one.jpg   | 4           |
+| 8      | http://two.jpg   | 1           |
+| 9      | http://24two.jpg | 1           |
+| 10     | http://365.jpg   | 1           |
+| 11     | http://11.jpg    | 2           |
+| 12     | http://five.jpg  | 3           |
+| 13     | http://1000.jpg  | 4           |
+
+Some users have multiple photos. 
