@@ -129,3 +129,32 @@ SELECT * FROM users;
 | 2      | pfeffer      |
 | 3      | si93onis     |
 | 4      | 99stroman    |
+
+Do not intend to change these ids at any point in time.
+
+---
+
+### Creating Foreign Key Columns:
+
+- We don't use Serial for Foreign Keys because otherwise Postgres will try to assing a value to it automatically, we want to be able to specify exactly what user provided a given photo. So we use Integer and then add one more piece of syntax which will turn it into a Forieng Key Column = REFERENCES table(column)
+- Marking a column as a FK enforces some level of data consistency. 
+
+~~~~sql
+CREATE TABLE photos (
+  id SERIAL PRIMARY KEY,
+  url VARCHAR(200),
+  user_id INTEGER REFERENCES users(id)
+);
+---
+INSERT INTO
+  PHOTOS (url, user_id)
+VALUES('http://one.jpg', 4);
+---
+SELECT * FROM photos;
+~~~~
+
+**Query Result**
+
+| **id** | **url**        | **user_id** |
+|--------|----------------|-------------|
+| 1      | http://one.jpg | 4           |
