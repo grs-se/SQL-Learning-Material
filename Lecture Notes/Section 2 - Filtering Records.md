@@ -1,6 +1,4 @@
-# SECTION 3
-
-## Filtering Records
+# SECTION 2: Filtering Records
 
 ### Filter Rows with “WHERE”
 
