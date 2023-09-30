@@ -123,9 +123,9 @@ SELECT * FROM users;
 
 **Query Result**
 
-id | username
---- | ---
-1	| monohan93
-2	| pfeffer
-3	| si93onis
-4	| 99stroman
+| **id** | **username** |
+|--------|--------------|
+| 1      | monohan93    |
+| 2      | pfeffer      |
+| 3      | si93onis     |
+| 4      | 99stroman    |
