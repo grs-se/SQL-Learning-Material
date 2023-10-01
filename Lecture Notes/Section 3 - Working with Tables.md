@@ -84,16 +84,13 @@ We are going to say that the many  side of our relationship is always going to g
   
 Thi sis the only way to set up relationships – so we really hav to understand hwo shtis works. It looks really confusing the first time, but the good news is that it’s a very mechanical process, setting up relationhsips is always sgoing to be done the exact same way. So you just have to learn it correctly one time and then it makes sense forever. 
 
-  
-| **    Primary Keys   **                                                                                                     | **    Foreign Keys   **                                             |   |
-|-----------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------|---|
-|     Each row in every table has one   primary key                                                                           |     Rows only have this is they belong   to another record          |   |
-|     No other row in the same table can   have the same value                                                                |     Many rows in the same table can   have the same foreign keys    |   |
-|     99% of the time called ‘id’ – bad   idea to set ‘name’ as primary key (i.e. Shanghai in China and also in   America)    |     Name varies, usually called   something like ‘xyd_id’           |   |
-|     Either an integer of a UUID                                                                                             |     Exactly equal to the primary key   of the referenced row        |   |
-|     Will never change                                                                                                       |     Will change if the relationship   changes.                      |   |
-|                                                                                                                             |                                                                     |   |
-|                                                                                                                             |                                                                     |   |
+|     Primary Keys                                                                                                            |     Foreign Keys                                                    |
+|-----------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------|
+|     Each row in every table has one   primary key                                                                           |     Rows only have this is they belong   to another record          |
+|     No other row in the same table can   have the same value                                                                |     Many rows in the same table can   have the same foreign keys    |
+|     99% of the time called ‘id’ – bad   idea to set ‘name’ as primary key (i.e. Shanghai in China and also in   America)    |     Name varies, usually called   something like ‘xyd_id’           |
+|     Either an integer of a UUID                                                                                             |     Exactly equal to the primary key   of the referenced row        |
+|     Will never change                                                                                                       |     Will change if the relationship   changes.                      |
 
 ---
 
@@ -216,15 +213,13 @@ In photos table we have 3 photos with user with id of 1. What would happen if we
 So when we make use of FOREIGN Keys with can specify some options, for exactly what we want to have happen whenever we try to delete a record that some other rows are dependent upon. In this case we would say that these 3 photos are dependent upon that user with id of 1. 
    
 **On Delete Option**
-|     ON DELETE RESTRICT (Default   behaviour)    |     Throw an error                                                             |   |
-|     ON DELETE NO ACTION                         |     Throw an error                                                             |   |
-|     ON DELETE CASCADE                           |     Delete the photo too!                                                      |   |
-|     ON DELETE SET NULL                          |     Set the ‘user_id’ of the photo to NULL                                     |   |
-|     ON DELETE SET DEFAULT                       |     Set the ‘user_Id’ of the photo to   a default value, if one is provided    |   |
-|                                                 |                                                                                |   |
-|                                                 |                                                                                |   |
-|                                                 |                                                                                |   |
-
+| DELETE OPTIONS                                  | RESULT                                                                         |
+|-------------------------------------------------|--------------------------------------------------------------------------------|
+|     ON DELETE RESTRICT (Default   behaviour)    |     Throw an error                                                             |
+|     ON DELETE NO ACTION                         |     Throw an error                                                             |
+|     ON DELETE CASCADE                           |     Delete the photo too!                                                      |
+|     ON DELETE SET NULL                          |     Set the ‘user_id’ of the photo to NULL                                     |
+|     ON DELETE SET DEFAULT                       |     Set the ‘user_Id’ of the photo to   a default value, if one is provided    |
 
 update or delete on table "users" violates foreign key constraint "photos_user_id_fkey" on table "photos"
 
@@ -245,5 +240,5 @@ SELECT * FROM photos;
 ~~~~
 
 A discussion forum has many posts and many replies inside of a post, if you delete a post or discussion thread then you will probably want to delete the replies inside of it as well. Same thing to a blog post with comments because there is no expectation that anyone will want to read those comments.
- 
+
 ---
