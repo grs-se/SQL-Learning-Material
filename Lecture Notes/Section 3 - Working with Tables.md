@@ -85,13 +85,15 @@ We are going to say that the many  side of our relationship is always going to g
 Thi sis the only way to set up relationships – so we really hav to understand hwo shtis works. It looks really confusing the first time, but the good news is that it’s a very mechanical process, setting up relationhsips is always sgoing to be done the exact same way. So you just have to learn it correctly one time and then it makes sense forever. 
 
   
-Primary keys a easier to understand, but foreign keys are a bit harder to remember what it does. 
-Primary Keys	Foreign Keys
-Each row in every table has one primary key	Rows only have this is they belong to another record
-No other row in the same table can have the same value	Many rows in the same table can have the same foreign keys
-99% of the time called ‘id’ – bad idea to set ‘name’ as primary key (i.e. Shanghai in China and also in America)	Name varies, usually called something like ‘xyd_id’
-Either an integer of a UUID	Exactly equal to the primary key of the referenced row
-Will never change	Will change if the relationship changes.
+| **    Primary Keys   **                                                                                                     | **    Foreign Keys   **                                             |   |
+|-----------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------|---|
+|     Each row in every table has one   primary key                                                                           |     Rows only have this is they belong   to another record          |   |
+|     No other row in the same table can   have the same value                                                                |     Many rows in the same table can   have the same foreign keys    |   |
+|     99% of the time called ‘id’ – bad   idea to set ‘name’ as primary key (i.e. Shanghai in China and also in   America)    |     Name varies, usually called   something like ‘xyd_id’           |   |
+|     Either an integer of a UUID                                                                                             |     Exactly equal to the primary key   of the referenced row        |   |
+|     Will never change                                                                                                       |     Will change if the relationship   changes.                      |   |
+|                                                                                                                             |                                                                     |   |
+|                                                                                                                             |                                                                     |   |
 
 ---
 
@@ -188,3 +190,60 @@ SELECT * FROM photos;
 | 13     | http://1000.jpg  | 4           |
 
 Some users have multiple photos. 
+
+---
+
+### Foreign Key Constraints Around Insertion:
+
+**Data Consistency**
+
+**3 scenarios**:
+-	We insert a photo that is tied to a user that exists – everything works ok. 
+-	We insert a photo that refers to a user that does not exist – what would happen here? This scenario doesn’t make sense, so we get an error. “insert or update on table “photos” violates foreign key constraint “Photos_user_id_fkey” – the term foreign key constraint means that Postgres wants to make sure that whenever we set up this foreign key it tries to reference a record that actually exists inside the user table. This is a very good feature to have. It makes sure that you don’t accidentally insert data into the database that doesn’t make sense at all. 
+-	We insert a photo that isn’t tied to any user – like an “image of the day”, a photo that isn’t intended to be associated with any user whatsoever. What would we do in that case? Instead of an id integer, we can put in NULL – the value NULL is very special in SQL and Postgres, it means there’s no value, nothing, so we can run this and are able to insert that record successfully. 
+
+~~~~sql
+INSERT INTO photos (url, user_id)
+VALUES ('http://3333.jpg', NULL);
+~~~~
+
+---
+
+### Constraints Around Deletion
+
+In photos table we have 3 photos with user with id of 1. What would happen if we deleted the user with id of 1? If that would happen we would have some ‘dangling keys / dangling references’ , in other words these photos are now trying to reference a user that doesn’t exist and never will exist. Remember our ids are using the SERIAL data type, whenever we use that SERIAL data type no id ever gets reused even if a record with some given id gets deleted. So when we delete the user with id of 1 there will never be another user with id of 1. And so these photos are never going to be referencing any user again, so we would have to add some code inside our app to somehow detect that we have some photos that aren’t referencing any user that exists, and that would be annoying. 
+   
+So when we make use of FOREIGN Keys with can specify some options, for exactly what we want to have happen whenever we try to delete a record that some other rows are dependent upon. In this case we would say that these 3 photos are dependent upon that user with id of 1. 
+   
+**On Delete Option**
+|     ON DELETE RESTRICT (Default   behaviour)    |     Throw an error                                                             |   |
+|     ON DELETE NO ACTION                         |     Throw an error                                                             |   |
+|     ON DELETE CASCADE                           |     Delete the photo too!                                                      |   |
+|     ON DELETE SET NULL                          |     Set the ‘user_id’ of the photo to NULL                                     |   |
+|     ON DELETE SET DEFAULT                       |     Set the ‘user_Id’ of the photo to   a default value, if one is provided    |   |
+|                                                 |                                                                                |   |
+|                                                 |                                                                                |   |
+|                                                 |                                                                                |   |
+
+
+update or delete on table "users" violates foreign key constraint "photos_user_id_fkey" on table "photos"
+
+---
+### Testing Deletion Constraints:
+
+~~~~sql
+CREATE TABLE photos (
+  id SERIAL PRIMARY KEY,
+  url VARCHAR(200),
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
+);
+
+DELETE FROM users
+WHERE id = 1;
+
+SELECT * FROM photos;
+~~~~
+
+A discussion forum has many posts and many replies inside of a post, if you delete a post or discussion thread then you will probably want to delete the replies inside of it as well. Same thing to a blog post with comments because there is no expectation that anyone will want to read those comments.
+ 
+---
